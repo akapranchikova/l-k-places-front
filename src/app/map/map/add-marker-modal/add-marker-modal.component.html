@@ -1,0 +1,24 @@
+<section class="section-modal">
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить спонсора</h2>
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать спонсора</h2>
+  <div class="section-modal__close" (click)="dialogRef.close()">
+    <mat-icon class="icon">close</mat-icon>
+  </div>
+  <label class="label-input-custom" for="name">
+    Спонсор
+  </label>
+  <input placeholder="Спонсор" id="name" type="text" class="input-custom section-modal__input">
+
+  <label class="label-input-custom" for="login">
+    Описание
+  </label>
+  <textarea placeholder="Описание" id="login" class="input-custom section-modal__input"></textarea>
+  <label class="label-input-custom" for="password">
+    Картинка
+  </label>
+  <input placeholder="Картинка" id="password" type="file" class="section-modal__input file-loader-custom">
+  <div class="section-modal__wrap-button">
+    <button class="button-custom button-custom_blue">Сохранить</button>
+    <button class="button-custom button-custom_gray" (click)="dialogRef.close()">Отмена</button>
+  </div>
+</section>
