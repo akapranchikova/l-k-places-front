@@ -1,11 +1,11 @@
 <section class="section-modal">
-  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить спонсора</h2>
-  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать спонсора</h2>
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить маркер</h2>
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать маркер</h2>
   <div class="section-modal__close" (click)="dialogRef.close()">
     <mat-icon class="icon">close</mat-icon>
   </div>
   <label class="label-input-custom" for="name">
-    Спонсор
+    Название маркера
   </label>
   <input placeholder="Спонсор" id="name" type="text" class="input-custom section-modal__input">
 

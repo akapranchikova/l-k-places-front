@@ -7,6 +7,10 @@ import 'leaflet';
 const L = window['L'];
 const TOKEN = 'pk.eyJ1IjoiYWthcHJhbmNoaWtvdmEiLCJhIjoiY2tneXRob3lxMG91ODJzb3NlNGt6Z2wxcyJ9.u6IgyPtPQpZhtUQldevAsw';
 
+enum MarkerTypes {
+  draw = 'draw', house = 'house', other = 'other'
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -18,6 +22,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   map;
   markerLayers = {};
   @ViewChild('map') mapElement: ElementRef;
+  legend = [
+    {type: MarkerTypes.draw, name: 'Граффити'},
+    {type: MarkerTypes.house, name: 'Заброшенные места'},
+    {type: MarkerTypes.other, name: 'Разное'}
+  ];
 
   constructor(private dialog: MatDialog) {
   }
@@ -26,7 +35,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.mapElement.nativeElement.style.height = `300px`;
     this.map = L.map(this.mapElement.nativeElement, {
       center: [51.505, -0.09],
       zoom: 6,
@@ -52,6 +60,14 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
+  toggleLayer(name) {
+    if (this.map.hasLayer(this.markerLayers[name])) {
+      this.map.removeLayer(this.markerLayers[name]);
+    } else {
+      this.map.addLayer(this.markerLayers[name]);
+    }
+  }
+
   openAddMarkerModal(mode: FormMode, element?) {
     this.dialog.open(AddMarkerModalComponent, {
       width: '400px',
@@ -63,7 +79,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   addMarker(type, coord) {
-    const marker = L.marker(coord, {icon: L.divIcon({className: `marker-leaflet ${type}`, html: `<div class="${type} icon"></div>`, iconSize: [32, 32]})});
+    const marker = L.marker(coord, {icon: L.divIcon({className: `marker-leaflet ${type}`, html: `<div class="icon"></div>`, iconSize: [32, 32]})});
     if (!this.markerLayers[type]) {
       this.markerLayers[type] = new L.LayerGroup([marker]);
     } else {

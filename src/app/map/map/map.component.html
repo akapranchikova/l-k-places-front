@@ -5,6 +5,12 @@
               (click)="openAddMarkerModal(FormMode.ADD)">add
     </mat-icon>
   </div>
-  <div class="map" #map></div>
+  <div class="legend">
+    <div class="legend__item" *ngFor="let legend of legend" (click)="toggleLayer(legend.type)">
+      <div class="marker-leaflet {{legend.type}}"><i class="icon"></i></div>
+      <div class="legend__name">{{legend.name}}</div>
+    </div>
+  </div>
+  <div class="map" id="map" #map></div>
 
 </section>
