@@ -15,7 +15,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainComponent,
+        redirectTo: 'news',
+        pathMatch: 'full'
       },
       {
         path: 'news',
