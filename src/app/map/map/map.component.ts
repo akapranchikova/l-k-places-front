@@ -6,6 +6,7 @@ import 'leaflet';
 
 const L = window['L'];
 const TOKEN = 'pk.eyJ1IjoiYWthcHJhbmNoaWtvdmEiLCJhIjoiY2tneXRob3lxMG91ODJzb3NlNGt6Z2wxcyJ9.u6IgyPtPQpZhtUQldevAsw';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -15,13 +16,13 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   FormMode = FormMode;
   map;
+  markerLayers = {};
   @ViewChild('map') mapElement: ElementRef;
 
   constructor(private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit() {
@@ -34,13 +35,20 @@ export class MapComponent implements OnInit, AfterViewInit {
       zoomSnap: 0,
     });
     L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox/streets-v11',
       tileSize: 512,
       zoomOffset: -1,
       accessToken: 'your.mapbox.access.token'
     }).addTo(this.map);
+
+    this.addMarker('draw', [51.505, -0.09]);
+    this.addMarker('draw', [51.505, -1.09]);
+    this.addMarker('house', [51.505, -2.09]);
+    this.addMarker('other', [51.505, -3.09]);
+    Object.keys(this.markerLayers).forEach(key => {
+      this.markerLayers[key].addTo(this.map);
+    });
   }
 
   openAddMarkerModal(mode: FormMode, element?) {
@@ -51,6 +59,15 @@ export class MapComponent implements OnInit, AfterViewInit {
         element
       }
     });
+  }
+
+  addMarker(type, coord) {
+    const marker = L.marker(coord, {icon: L.divIcon({className: `marker-leaflet ${type}`, html: `<div class="${type} icon"></div>`, iconSize: [32, 32]})});
+    if (!this.markerLayers[type]) {
+      this.markerLayers[type] = new L.LayerGroup([marker]);
+    } else {
+      this.markerLayers[type].addLayer(marker);
+    }
   }
 
 }
