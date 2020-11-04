@@ -6,7 +6,7 @@ import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../common/material.module';
-import {MainComponent} from './main/main.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   {
@@ -43,14 +43,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [IndexComponent, FooterComponent, HeaderComponent, SignInComponent, MainComponent],
+  declarations: [IndexComponent, FooterComponent, HeaderComponent, SignInComponent, SignUpComponent],
   imports: [
     [RouterModule.forChild(routes)],
     CommonModule,
     MaterialModule
   ],
   entryComponents: [
-    SignInComponent
+    SignInComponent,
+    SignUpComponent
   ],
 })
 export class BaseModule {

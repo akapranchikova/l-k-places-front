@@ -79,7 +79,18 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   addMarker(type, coord) {
-    const marker = L.marker(coord, {icon: L.divIcon({className: `marker-leaflet ${type}`, html: `<div class="icon"></div>`, iconSize: [32, 32]})});
+    const marker = L.marker(coord, {
+      icon: L.divIcon({
+        className: `marker-leaflet ${type}`,
+        html: `<div class="icon"></div>`, iconSize: [32, 32]
+      })
+    });
+
+    const popup = L.popup()
+      .setLatLng(coord)
+      .setContent('<p>Hello world!<br />This is a nice popup.</p>');
+    marker.bindPopup(popup);
+
     if (!this.markerLayers[type]) {
       this.markerLayers[type] = new L.LayerGroup([marker]);
     } else {
