@@ -7,6 +7,8 @@ import {HeaderComponent} from './header/header.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../common/material.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {GuardService} from '../services/guard.service';
 
 const routes: Routes = [
   {
@@ -27,6 +29,7 @@ const routes: Routes = [
         loadChildren: () => import('../events/events.module').then(m => m.EventsModule)
       },
       {
+        canActivate: [GuardService],
         path: 'profile',
         loadChildren: () => import('../account/account.module.js').then(m => m.AccountModule)
       },
@@ -47,7 +50,8 @@ const routes: Routes = [
   imports: [
     [RouterModule.forChild(routes)],
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     SignInComponent,

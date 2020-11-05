@@ -1,4 +1,4 @@
-<section class="section-modal section-sign-in">
+<section class="section-modal section-sign-in" [formGroup]="form">
   <h2 class="section-modal__title">Войти</h2>
   <div class="section-modal__close" (click)="dialogRef.close()">
     <mat-icon class="icon">close</mat-icon>
@@ -6,13 +6,13 @@
   <label class="label-input-custom" for="login">
     Логин
   </label>
-  <input placeholder="Логин" id="login" type="text" class="input-custom section-modal__input">
+  <input placeholder="Логин" id="login" type="text" class="input-custom section-modal__input" formControlName="email">
   <label class="label-input-custom" for="password">
     Пароль
   </label>
-  <input placeholder="Пароль" id="password" type="password" class="input-custom section-modal__input">
+  <input placeholder="Пароль" id="password" type="password" class="input-custom section-modal__input" formControlName="password">
   <div class="section-modal__wrap-button">
-    <button class="button-custom button-custom_blue">Войти</button>
+    <button class="button-custom button-custom_blue" (click)="signIn()">Войти</button>
     <button class="button-custom button-custom_gray">Забыли пароль?</button>
   </div>
   <div class="section-modal__sign-up">

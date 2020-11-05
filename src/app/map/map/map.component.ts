@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddMarkerModalComponent} from './add-marker-modal/add-marker-modal.component';
 import {FormMode} from '../../common/misc/helper';
 import 'leaflet';
+import {HttpService} from '../../services/http.service';
 
 const L = window['L'];
 const TOKEN = 'pk.eyJ1IjoiYWthcHJhbmNoaWtvdmEiLCJhIjoiY2tneXRob3lxMG91ODJzb3NlNGt6Z2wxcyJ9.u6IgyPtPQpZhtUQldevAsw';
@@ -28,10 +29,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     {type: MarkerTypes.other, name: 'Разное'}
   ];
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private httpService: HttpService) {
   }
 
   ngOnInit(): void {
+    this.httpService.get('/place-types').subscribe(res => {
+
+    });
+    this.httpService.get('/map-markers').subscribe(res => {
+      console.log(res)
+    });
   }
 
   ngAfterViewInit() {
@@ -42,14 +49,14 @@ export class MapComponent implements OnInit, AfterViewInit {
       zoomDelta: 0.25,
       zoomSnap: 0,
     });
-    // L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
-    //   maxZoom: 18,
-    //   id: 'mapbox/streets-v11',
-    //   tileSize: 512,
-    //   countryLabel: 'ru',
-    //   zoomOffset: -1,
-    //   accessToken: 'your.mapbox.access.token'
-    // }).addTo(this.map);
+    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      countryLabel: 'ru',
+      zoomOffset: -1,
+      accessToken: 'your.mapbox.access.token'
+    }).addTo(this.map);
 
     this.addMarker('draw', [51.505, -0.09]);
     this.addMarker('draw', [51.505, -1.09]);

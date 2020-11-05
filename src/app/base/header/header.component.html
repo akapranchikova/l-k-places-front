@@ -6,10 +6,20 @@
       <a class="header_main-menu__link" routerLink="/events" routerLinkActive="active">События</a>
       <a class="header_main-menu__link" routerLink="/map" routerLinkActive="active">Карта</a>
     </nav>
-    <div class="user-info">
+    <div class="user-info" *ngIf="!user">
       <div class="user" (click)="openSignIn()">
         <mat-icon class="icon">person</mat-icon>
         <span>Войти</span>
+      </div>
+    </div>
+    <div class="user-info" *ngIf="user">
+      <div class="user" routerLink="/profile">
+        <mat-icon class="icon">person</mat-icon>
+        <span>{{user.firstName}}</span>
+      </div>
+      <div class="user" (click)="logout()">
+        <span>Выйти</span>
+        <mat-icon class="icon">exit_to_app</mat-icon>
       </div>
     </div>
   </div>

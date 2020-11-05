@@ -17,7 +17,7 @@ enum HTTP_METHOD {
 export class HttpService {
 
   // tslint:disable-next-line:variable-name
-  private _apiUrl: string = environment.httpApiUrl;
+  private _apiUrl: string = '';
 
   public tokenReceived$ = new ReplaySubject(1);
 
@@ -27,7 +27,7 @@ export class HttpService {
   }
 
 
-  public get(url: string, params?: { [key: string]: any }, hideSpinner?: boolean, apiV2?: boolean, rtype?: string): Observable<any> {
+  public get(url: string, params?: { [key: string]: any }, hideSpinner?: boolean, rtype?: string): Observable<any> {
     let httpParams = new HttpParams();
     if (params) {
       for (const key of Object.keys(params)) {
@@ -36,7 +36,7 @@ export class HttpService {
         }
       }
     }
-    return this._request(HTTP_METHOD.GET, url, params, hideSpinner, apiV2, rtype);
+    return this._request(HTTP_METHOD.GET, url, params, hideSpinner, rtype);
   }
 
   export(url: string, params?: { [key: string]: any }): Observable<any> {
@@ -48,21 +48,21 @@ export class HttpService {
     return this._http.get(`http://office-api.ads.svc.k8s.devel/api/v1/${url}`, httpOptions);
   }
 
-  public post(url: string, data: any, hideSpinner?: boolean, apiV2?: boolean, rtype?: string): Observable<any> {
-    return this._request(HTTP_METHOD.POST, url, data, hideSpinner, apiV2, rtype);
+  public post(url: string, data: any, hideSpinner?: boolean, rtype?: string): Observable<any> {
+    return this._request(HTTP_METHOD.POST, url, data, hideSpinner, rtype);
   }
 
 
-  public patch(url: string, data: any, hideSpinner?: boolean, apiV2?: boolean): Observable<any> {
-    return this._request(HTTP_METHOD.PATCH, url, data, hideSpinner, apiV2);
+  public patch(url: string, data: any, hideSpinner?: boolean): Observable<any> {
+    return this._request(HTTP_METHOD.PATCH, url, data, hideSpinner);
   }
 
 
-  public put(url: string, data?: any, hideSpinner?: boolean, apiV2?: boolean): Observable<any> {
-    return this._request(HTTP_METHOD.PUT, url, data, hideSpinner, apiV2);
+  public put(url: string, data?: any, hideSpinner?: boolean): Observable<any> {
+    return this._request(HTTP_METHOD.PUT, url, data, hideSpinner);
   }
 
-  public delete(url: string, params?: { [key: string]: any }, hideSpinner?: boolean, apiV2?: boolean): Observable<any> {
+  public delete(url: string, params?: { [key: string]: any }, hideSpinner?: boolean): Observable<any> {
     let httpParams = new HttpParams();
     if (params) {
       for (const key of Object.keys(params)) {
@@ -71,10 +71,10 @@ export class HttpService {
         }
       }
     }
-    return this._request(HTTP_METHOD.DELETE, url, params, hideSpinner, apiV2);
+    return this._request(HTTP_METHOD.DELETE, url, params, hideSpinner);
   }
 
-  private _request(method: HTTP_METHOD, url: string, data?: any, hideSpinner?: boolean, apiV2?: boolean, rtype?: string) {
+  private _request(method: HTTP_METHOD, url: string, data?: any, hideSpinner?: boolean, rtype?: string) {
 
     if (!hideSpinner) {
       this._eventService.isLoading$.next(true);
@@ -91,7 +91,7 @@ export class HttpService {
       httpOptions = {headers, params: {}, responseType: rtype ? rtype as 'json' : 'json'};
     }
 
-    const concatUrl = (apiV2 ? environment.httpApiUrlV2 : this._apiUrl) + url;
+    const concatUrl = (this._apiUrl) + url;
     switch (method) {
       case HTTP_METHOD.GET:
         httpOptions.params = data;

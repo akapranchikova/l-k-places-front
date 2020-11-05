@@ -32,10 +32,17 @@
     text-decoration: underline;
   }
 }
+.user-info {
+  display: flex;
+  .icon {
+    margin-left: 7px;
+  }
+}
 
 .user {
   cursor: pointer;
   display: flex;
+  margin-right: 15px;
   align-items: center;
   .icon {
     margin-right: 7px;
