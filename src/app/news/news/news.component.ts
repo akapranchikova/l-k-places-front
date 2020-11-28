@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormMode} from '../../common/misc/helper';
 import {AddNewsModalComponent} from '../add-news-modal/add-news-modal.component';
 import {HttpService} from '../../services/http.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-news',
@@ -13,7 +14,9 @@ import {HttpService} from '../../services/http.service';
 export class NewsComponent implements OnInit {
 
   FormMode = FormMode;
-  constructor(private dialog: MatDialog, private httpService: HttpService) { }
+  constructor(private dialog: MatDialog,
+              private authService: AuthService,
+              private httpService: HttpService) { }
 
   ngOnInit(): void {
     this.httpService.get('/posts').subscribe(res => {

@@ -1,0 +1,125 @@
+@import 'icons.scss';
+@import 'fonts.scss';
+
+.wrap-select {
+  cursor: pointer;
+  position: relative;
+  width: inherit;
+
+  .title {
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    margin-right: 20px;
+  }
+
+  .input-medium {
+    border: 1px solid #D9DADB;
+    width: 100%;
+    height: 40px;
+    color: black;
+    padding: 10px 28px 10px 10px;
+    box-sizing: border-box;
+    pointer-events: all;
+    box-shadow: 0 7px 64px rgba(0, 0, 0, 0.07);
+    position: relative;
+    border-radius: 3px;
+    text-overflow: ellipsis;
+
+    &::placeholder {
+      color: gray;
+    }
+
+    &:hover {
+      border-color: #D9DADB;
+    }
+
+    &:focus {
+      border: 2px solid #D9DADB;
+      padding: 9px 27px 9px 9px;
+    }
+  }
+
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+  }
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    @include icon-colored('arrow-select.svg', #888888);
+  }
+  &.full::after {
+    transform: rotate(180deg);
+    @include icon-colored('arrow-select.svg', gray);
+  }
+  &.topName::after {
+    top: 32px;
+  }
+  &.disable:after {
+    display: none;
+  }
+}
+
+.full {
+  .input-medium {
+    border: 2px solid #D9DADB;
+    padding: 9px 27px 9px 9px;
+  }
+}
+
+.input-medium:hover + .formSelect-dropdown {
+}
+
+.formSelect-dropdown {
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  position: fixed;
+  box-shadow: 0 2px 8px rgba(53, 45, 45, 0.46);
+  border-radius: 3px;
+  font-weight: 500;
+  z-index: 5;
+  background: white;
+  font-size: 14px;
+  display: none;
+  left: 0;
+  top: 48px;
+  &.topName {
+    top: 70px;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      padding: 10px;
+      color: gray;
+      &:hover {
+        background: gray;
+      }
+    }
+  }
+  &.show {
+    display: block;
+  }
+}
+:host.ng-invalid.ng-touched {
+  input {
+    border: 1px solid red;
+  }
+}
+

@@ -82,7 +82,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private addAccessTokenToRequest(request: HttpRequest<any>): HttpRequest<any> {
     if (this.authService.getToken) {
-      return request.clone({setHeaders: {Authorization: '' + this.authService.getToken}});
+      return request.clone({setHeaders: {Authorization: 'Bearer ' + this.authService.getToken}});
     }
     return request;
   }

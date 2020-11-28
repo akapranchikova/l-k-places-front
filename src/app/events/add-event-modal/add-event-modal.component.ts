@@ -1,17 +1,16 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormMode} from '../../common/misc/helper';
-import {HttpService} from '../../services/http.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {HttpService} from '../../services/http.service';
 import {PlaceTypesService} from '../../services/place-types.service';
+import {FormMode} from '../../common/misc/helper';
 
 @Component({
-  selector: 'app-add-news-modal',
-  templateUrl: './add-news-modal.component.html',
-  styleUrls: ['./add-news-modal.component.scss']
+  selector: 'app-add-event-modal',
+  templateUrl: './add-event-modal.component.html',
+  styleUrls: ['./add-event-modal.component.scss']
 })
-export class AddNewsModalComponent implements OnInit {
+export class AddEventModalComponent implements OnInit {
 
   FormMode = FormMode;
   form: FormGroup = this.fb.group({
@@ -23,7 +22,7 @@ export class AddNewsModalComponent implements OnInit {
 
   placeTypes;
 
-  constructor(public dialogRef: MatDialogRef<AddNewsModalComponent>,
+  constructor(public dialogRef: MatDialogRef<AddEventModalComponent>,
               private fb: FormBuilder,
               private httpService: HttpService,
               private placeTypesService: PlaceTypesService,
@@ -36,9 +35,7 @@ export class AddNewsModalComponent implements OnInit {
 
   addNews() {
     const data = this.form.getRawValue();
-    this.httpService.post('/posts', data).subscribe(res => {
+    this.httpService.post('/events', data).subscribe(res => {
     });
   }
-
-
 }

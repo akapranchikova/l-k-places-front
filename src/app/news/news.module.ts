@@ -6,6 +6,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddNewsModalComponent } from './add-news-modal/add-news-modal.component';
 import { PostPageComponent } from './post-page/post-page.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '../common/material.module';
 
 const routes: Routes = [
   {
@@ -25,6 +27,8 @@ const routes: Routes = [
         CommonModule,
         MatIconModule,
         MatTooltipModule,
+        ReactiveFormsModule,
+        MaterialModule,
     ],
   entryComponents: [
     AddNewsModalComponent

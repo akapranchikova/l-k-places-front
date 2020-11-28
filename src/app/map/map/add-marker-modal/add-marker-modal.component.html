@@ -1,4 +1,4 @@
-<section class="section-modal">
+<section class="section-modal" [formGroup]="form">
   <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить маркер</h2>
   <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать маркер</h2>
   <div class="section-modal__close" (click)="dialogRef.close()">
@@ -7,18 +7,21 @@
   <label class="label-input-custom" for="name">
     Название маркера
   </label>
-  <input placeholder="Название" id="name" type="text" class="input-custom section-modal__input">
+  <input placeholder="Название" formControlName="label" id="name" type="text" class="input-custom section-modal__input">
 
   <label class="label-input-custom" for="login">
     Описание
   </label>
-  <textarea placeholder="Описание" id="login" class="input-custom section-modal__input"></textarea>
-<!--  <label class="label-input-custom" for="password">-->
-<!--    Картинка-->
-<!--  </label>-->
-<!--  <input placeholder="Картинка" id="password" type="file" class="section-modal__input file-loader-custom">-->
+  <textarea placeholder="Описание" formControlName="description" id="login" class="input-custom section-modal__input"></textarea>
+
+  <label class="label-input-custom">
+    Тип маркера
+  </label>
+  <app-select class="select" formControlName="id_place_type" [items]="placeTypes" valueField="id" labelField="label"></app-select>
+  <div class="map" id="map-add" #mapAdd></div>
+
   <div class="section-modal__wrap-button">
-    <button class="button-custom button-custom_blue">Сохранить</button>
+    <button class="button-custom button-custom_blue" (click)="save()">Сохранить</button>
     <button class="button-custom button-custom_gray" (click)="dialogRef.close()">Отмена</button>
   </div>
 </section>

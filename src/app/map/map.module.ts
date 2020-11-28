@@ -6,6 +6,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddMarkerModalComponent } from './map/add-marker-modal/add-marker-modal.component';
 import {AddUserModalComponent} from '../users/users/add-user-modal/add-user-modal.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '../common/material.module';
 
 
 const routes: Routes = [
@@ -21,7 +23,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MaterialModule
   ],
   entryComponents: [
     AddMarkerModalComponent

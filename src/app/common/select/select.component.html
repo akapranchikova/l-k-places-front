@@ -1,0 +1,14 @@
+<div class="wrap-select" (click)="showSelect($event)" [class.full]="show" [class.topName]="nameSelect" #select
+      [class.disable]="disabled">
+  <div class="title" *ngIf="nameSelect">{{nameSelect}}</div>
+  <input [disabled]="disabled" [readonly]="readonly" [required]="required" type="text" class="form-control input-medium"
+         [matTooltip]="selectedElement? selectedElement[labelField] : ''"
+         [slot]="selectedValue ? selectedValue[valueField]?.toString() : ''"
+    [placeholder]="placeholder" [value]="selectedElement? selectedElement[labelField] : ''" >
+  <div class="arrow"></div>
+  <div class="formSelect-dropdown formSelect-dropdown-select"  #dropdown [class.topName]="nameSelect" [class.show]="show">
+    <div class="formSelect-list" tabindex="2" [ngStyle]="scroll ? { 'max-height': '300px' , 'overflow-y': 'scroll' } : {}">
+    </div>
+  </div>
+  <div class="formSelect__arrow"></div>
+</div>

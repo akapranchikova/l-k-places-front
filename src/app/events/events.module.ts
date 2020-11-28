@@ -4,6 +4,7 @@ import { EventsComponent } from './events/events.component';
 import {RouterModule, Routes} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [EventsComponent],
+  declarations: [EventsComponent, AddEventModalComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

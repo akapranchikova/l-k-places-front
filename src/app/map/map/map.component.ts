@@ -49,14 +49,14 @@ export class MapComponent implements OnInit, AfterViewInit {
       zoomDelta: 0.25,
       zoomSnap: 0,
     });
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      countryLabel: 'ru',
-      zoomOffset: -1,
-      accessToken: 'your.mapbox.access.token'
-    }).addTo(this.map);
+    // L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
+    //   maxZoom: 18,
+    //   id: 'mapbox/streets-v11',
+    //   tileSize: 512,
+    //   countryLabel: 'ru',
+    //   zoomOffset: -1,
+    //   accessToken: 'your.mapbox.access.token'
+    // }).addTo(this.map);
 
     this.addMarker('draw', [51.505, -0.09]);
     this.addMarker('draw', [51.505, -1.09]);
@@ -77,7 +77,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   openAddMarkerModal(mode: FormMode, element?) {
     this.dialog.open(AddMarkerModalComponent, {
-      width: '400px',
+      width: '600px',
       data: {
         mode,
         element
