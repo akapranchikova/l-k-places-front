@@ -18,7 +18,7 @@ export class AddNewsModalComponent implements OnInit {
     label: '',
     description: '',
     status: 'WAITING_FOR_APPROVAL',
-    id_place_type: null
+    placeTypeId: null
   });
 
   placeTypes;
@@ -32,12 +32,22 @@ export class AddNewsModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.placeTypes = this.placeTypesService.placeTypes;
+    if (this.data.mode === FormMode.EDIT) {
+      this.form = this.fb.group({...this.data.element, placeTypeId: this.data.element.placeType.id});
+    }
   }
 
   addNews() {
     const data = this.form.getRawValue();
-    this.httpService.post('/posts', data).subscribe(res => {
-    });
+    if (this.data.mode === FormMode.ADD) {
+      this.httpService.post('/posts', data).subscribe(res => {
+        this.dialogRef.close(true);
+      });
+    } else {
+      this.httpService.put(`/posts/${this.data.element.id}`, data).subscribe(res => {
+        this.dialogRef.close(true);
+      });
+    }
   }
 
 

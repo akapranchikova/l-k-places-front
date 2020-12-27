@@ -1,48 +1,30 @@
 <section class="section-news">
   <div class="section-news__header">
     <h2 class="section-news__title">Последние новости</h2>
-    <mat-icon class="section-news__icon-add icon-clicked" matTooltip="Добавить новость" (click)="openAddNewsModal(FormMode.ADD)">add</mat-icon>
+    <mat-icon class="section-news__icon-add icon-clicked" matTooltip="Добавить новость"
+              *ngIf="canEdit"
+              (click)="openAddNewsModal(FormMode.ADD)">add</mat-icon>
   </div>
   <div class="news-set">
 
-    <article class="news">
+    <article class="news" *ngFor="let news of setNews">
       <header class="news__header">
         <h3 class="news__title">
-          Passengers Suffer as Crowded Field Puts Pressure on Europe’s Airlines
+          {{news.label}}
         </h3>
         <div class="actions">
-          <mat-icon class="news__edit icon-clicked" (click)="openAddNewsModal(FormMode.EDIT)">edit</mat-icon>
-          <mat-icon class="news__delete icon-clicked">delete</mat-icon>
+          <mat-icon class="news__edit icon-clicked" (click)="openAddNewsModal(FormMode.EDIT, news)"
+                    *ngIf="canEdit || user && user.id === news.author.id">edit</mat-icon>
+          <mat-icon class="news__delete icon-clicked" (click)="delete(news.id)"
+                    *ngIf="canEdit || user && user.id === news.author.id">delete</mat-icon>
         </div>
 
       </header>
-      <p class="news__info">Weaker carriers have fallen by the wayside amid fierce competition, while others have been hit by bad luck. The result: thousands of canceled flights.</p>
+      <p class="news__info">{{news.description}}</p>
       <footer class="news__footer">
-        <span class="news__date">Aug 6</span>
+        <span class="news__date">{{news.date | date: "MMM dd"}}</span>
       </footer>
     </article>
-  <article class="news">
-    <header class="news__header">
-      <h3 class="news__title">
-        Passengers Suffer as Crowded Field Puts Pressure on Europe’s Airlines
-      </h3>
-    </header>
-    <p class="news__info">Weaker carriers have fallen by the wayside amid fierce competition, while others have been hit by bad luck. The result: thousands of canceled flights.</p>
-    <footer class="news__footer">
-      <span class="news__date">Aug 6</span>
-    </footer>
-  </article>
-  <article class="news">
-    <header class="news__header">
-      <h3 class="news__title">
-        Passengers Suffer as Crowded Field Puts Pressure on Europe’s Airlines
-      </h3>
-    </header>
-    <p class="news__info">Weaker carriers have fallen by the wayside amid fierce competition, while others have been hit by bad luck. The result: thousands of canceled flights.</p>
-    <footer class="news__footer">
-      <span class="news__date">Aug 6</span>
-    </footer>
-  </article>
   </div>
 
 </section>

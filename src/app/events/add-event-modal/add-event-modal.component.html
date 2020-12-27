@@ -1,13 +1,13 @@
 <section class="section-modal" [formGroup]="form">
-  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить новость</h2>
-  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать новость</h2>
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.ADD">Добавить событие</h2>
+  <h2 class="section-modal__title" *ngIf="data.mode === FormMode.EDIT">Редактировать событие</h2>
   <div class="section-modal__close" (click)="dialogRef.close()">
     <mat-icon class="icon">close</mat-icon>
   </div>
   <label class="label-input-custom" for="name">
-    Название новости
+    Название
   </label>
-  <input placeholder="Новость" formControlName="label" id="name" type="text" class="input-custom section-modal__input">
+  <input placeholder="Название" formControlName="label" id="name" type="text" class="input-custom section-modal__input">
 
   <label class="label-input-custom" for="login">
     Описание

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddMarkerModalComponent} from '../../map/map/add-marker-modal/add-marker-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {FormMode} from '../../common/misc/helper';
@@ -14,13 +14,24 @@ import {AuthService} from '../../services/auth.service';
 export class NewsComponent implements OnInit {
 
   FormMode = FormMode;
+  setNews;
+  canEdit;
+  user;
+
   constructor(private dialog: MatDialog,
               private authService: AuthService,
-              private httpService: HttpService) { }
+              private httpService: HttpService) {
+  }
 
   ngOnInit(): void {
+    this.loadNews();
+    this.canEdit = this.authService.canEdit;
+    this.authService.getUserObservable().subscribe(res => this.user = res);
+  }
+
+  loadNews() {
     this.httpService.get('/posts').subscribe(res => {
-      console.log(res);
+      this.setNews = res;
     });
   }
 
@@ -31,6 +42,16 @@ export class NewsComponent implements OnInit {
         mode,
         element
       }
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.loadNews();
+      }
+    });
+  }
+
+  delete(id) {
+    this.httpService.delete('/posts/' + id).subscribe(res => {
+      this.loadNews();
     });
   }
 

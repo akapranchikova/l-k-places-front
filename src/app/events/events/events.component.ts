@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../../services/http.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AddNewsModalComponent} from '../../news/add-news-modal/add-news-modal.component';
 import {FormMode} from '../../common/misc/helper';
 import {AddEventModalComponent} from '../add-event-modal/add-event-modal.component';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-events',
@@ -11,13 +12,23 @@ import {AddEventModalComponent} from '../add-event-modal/add-event-modal.compone
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
+  FormMode = FormMode;
+  events;
+  canEdit;
 
   constructor(private httpService: HttpService,
-              private dialog: MatDialog) { }
+              private authService: AuthService,
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
+    this.loadData();
+    this.canEdit = this.authService.canEdit;
+  }
+
+  loadData() {
     this.httpService.get('/events').subscribe(res => {
-      console.log(res)
+      this.events = res;
     });
   }
 
@@ -28,6 +39,12 @@ export class EventsComponent implements OnInit {
         mode,
         element
       }
+    });
+  }
+
+  deleteEvent(id: number) {
+    this.httpService.delete(`/posts/${id}`).subscribe(res => {
+      this.loadData();
     });
   }
 

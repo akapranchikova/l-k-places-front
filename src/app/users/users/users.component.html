@@ -5,24 +5,20 @@
   </div>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8 section-rating__table table-rating table-custom">
     <ng-container matColumnDef="login">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Username </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.login}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Имя Фамилия </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="faculty">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Факультет </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.faculty}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="user">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Пользователь </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.user}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Роль </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.role=== 'USER' ? 'Пользователь' : 'Администратор'}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="rating">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Рейтинг </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.rating}} </mat-cell>
-    </ng-container>
 
     <ng-container matColumnDef="actions">
       <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef></mat-header-cell>

@@ -5,6 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '../common/material.module';
 
 const routes: Routes = [
   {
@@ -19,7 +21,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class EventsModule { }

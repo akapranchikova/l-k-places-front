@@ -19,7 +19,7 @@ export class AddMarkerModalComponent implements OnInit, AfterViewInit {
 
   FormMode = FormMode;
   form: FormGroup = this.fb.group({
-    id_place_type: null,
+    placeTypeId: null,
     description: '',
     label: ''
   });
@@ -46,14 +46,14 @@ export class AddMarkerModalComponent implements OnInit, AfterViewInit {
       zoomDelta: 0.25,
       zoomSnap: 0,
     });
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      countryLabel: 'ru',
-      zoomOffset: -1,
-      accessToken: 'your.mapbox.access.token'
-    }).addTo(this.map);
+    // L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
+    //   maxZoom: 18,
+    //   id: 'mapbox/streets-v11',
+    //   tileSize: 512,
+    //   countryLabel: 'ru',
+    //   zoomOffset: -1,
+    //   accessToken: 'your.mapbox.access.token'
+    // }).addTo(this.map);
     this.map.on('click', (event) => {
       if (!this.marker) {
         this.marker =  L.marker(event.latlng);
@@ -68,7 +68,7 @@ export class AddMarkerModalComponent implements OnInit, AfterViewInit {
     const data = this.form.getRawValue();
     data.lat = this.marker.getLatLng().lat;
     data.lng = this.marker.getLatLng().lng;
-    this.httpService.post('map-marker', data).subscribe(res => res);
+    this.httpService.post('map-markers', data).subscribe(res => this.dialogRef.close(true));
   }
 
   clickOnMap() {}

@@ -4,6 +4,7 @@ import {AddMarkerModalComponent} from './add-marker-modal/add-marker-modal.compo
 import {FormMode} from '../../common/misc/helper';
 import 'leaflet';
 import {HttpService} from '../../services/http.service';
+import {AuthService} from '../../services/auth.service';
 
 const L = window['L'];
 const TOKEN = 'pk.eyJ1IjoiYWthcHJhbmNoaWtvdmEiLCJhIjoiY2tneXRob3lxMG91ODJzb3NlNGt6Z2wxcyJ9.u6IgyPtPQpZhtUQldevAsw';
@@ -22,22 +23,36 @@ export class MapComponent implements OnInit, AfterViewInit {
   FormMode = FormMode;
   map;
   markerLayers = {};
+  objType = {
+    1: MarkerTypes.draw,
+    2: MarkerTypes.house,
+    3: MarkerTypes.other,
+  };
   @ViewChild('map') mapElement: ElementRef;
   legend = [
     {type: MarkerTypes.draw, name: 'Граффити'},
     {type: MarkerTypes.house, name: 'Заброшенные места'},
     {type: MarkerTypes.other, name: 'Разное'}
   ];
+  canEdit;
 
-  constructor(private dialog: MatDialog, private httpService: HttpService) {
+  constructor(private dialog: MatDialog,
+              private authService: AuthService,
+              private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.httpService.get('/place-types').subscribe(res => {
+    this.canEdit = this.authService.canEdit;
+  }
 
-    });
+  loadMarkers() {
     this.httpService.get('/map-markers').subscribe(res => {
-      console.log(res)
+      res.forEach(marker => {
+        this.addMarker(this.objType[marker.placeType.id], [marker.lat, marker.lng], marker.description);
+      });
+      Object.keys(this.markerLayers).forEach(key => {
+        this.markerLayers[key].addTo(this.map);
+      });
     });
   }
 
@@ -57,14 +72,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     //   zoomOffset: -1,
     //   accessToken: 'your.mapbox.access.token'
     // }).addTo(this.map);
-
-    this.addMarker('draw', [51.505, -0.09]);
-    this.addMarker('draw', [51.505, -1.09]);
-    this.addMarker('house', [51.505, -2.09]);
-    this.addMarker('other', [51.505, -3.09]);
-    Object.keys(this.markerLayers).forEach(key => {
-      this.markerLayers[key].addTo(this.map);
-    });
+    this.loadMarkers();
   }
 
   toggleLayer(name) {
@@ -82,10 +90,14 @@ export class MapComponent implements OnInit, AfterViewInit {
         mode,
         element
       }
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.loadMarkers();
+      }
     });
   }
 
-  addMarker(type, coord) {
+  addMarker(type, coord, info?) {
     const marker = L.marker(coord, {
       icon: L.divIcon({
         className: `marker-leaflet ${type}`,
@@ -93,10 +105,12 @@ export class MapComponent implements OnInit, AfterViewInit {
       })
     });
 
-    const popup = L.popup()
-      .setLatLng(coord)
-      .setContent('<p>Hello world!<br />This is a nice popup.</p>');
-    marker.bindPopup(popup);
+    if (info) {
+      const popup = L.popup()
+        .setLatLng(coord)
+        .setContent(`<p>${info}</p>`);
+      marker.bindPopup(popup);
+    }
 
     if (!this.markerLayers[type]) {
       this.markerLayers[type] = new L.LayerGroup([marker]);
