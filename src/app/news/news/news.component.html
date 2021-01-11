@@ -2,14 +2,14 @@
   <div class="section-news__header">
     <h2 class="section-news__title">Последние новости</h2>
     <mat-icon class="section-news__icon-add icon-clicked" matTooltip="Добавить новость"
-              *ngIf="canEdit"
+              *ngIf="user"
               (click)="openAddNewsModal(FormMode.ADD)">add</mat-icon>
   </div>
   <div class="news-set">
 
     <article class="news" *ngFor="let news of setNews">
       <header class="news__header">
-        <h3 class="news__title">
+        <h3 class="news__title" routerLink="/news/{{news.id}}">
           {{news.label}}
         </h3>
         <div class="actions">

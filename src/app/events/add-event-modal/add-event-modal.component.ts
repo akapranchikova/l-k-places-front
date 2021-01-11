@@ -17,7 +17,9 @@ export class AddEventModalComponent implements OnInit {
     label: '',
     description: '',
     status: 'WAITING_FOR_APPROVAL',
-    id_place_type: null
+    id_place_type: null,
+    endDate: new Date(),
+    startDate: new Date(),
   });
 
   placeTypes;
@@ -31,6 +33,9 @@ export class AddEventModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.placeTypes = this.placeTypesService.placeTypes;
+    if (this.data.mode === FormMode.EDIT) {
+      this.form = this.fb.group({...this.data.element, placeTypeId: this.data.element.placeType.id});
+    }
   }
 
   addNews() {

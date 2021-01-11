@@ -1,11 +1,20 @@
 <section class="section-profile">
   <h2 class="section-profile__title">Профиль</h2>
   <div class="profile-card">
-    <img class="profile-card__image" src="/assets/images/noImage.png" alt="">
+    <div class="wrap-image">
+      <img class="profile-card__image" [src]="image ? image : '/assets/images/noImage.png'" alt="">
+      <label>
+      <div class="hover">
+        обновить фотографию
+      </div>
+      <input class="input-file" #fileInput type="file" accept="image/png, image/jpeg, image/jpg"
+             (change)="handleFiles($event.target.files)" name="poster[]">
+      </label>
+    </div>
     <div class="profile-card__info">
       <div class="profile-card__name">{{user?.firstName}} {{user?.lastName}}</div>
 <!--      <div class="profile-card__about">люблю фронтенд. JS в сердечке</div>-->
-      <button class="profile-card__edit-button button-custom button-custom_blue">Редактировать</button>
+<!--      <button class="profile-card__edit-button button-custom button-custom_blue">Редактировать</button>-->
     </div>
   </div>
 </section>

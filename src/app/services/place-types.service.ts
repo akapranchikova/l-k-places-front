@@ -17,7 +17,7 @@ export class PlaceTypesService {
   }
 
   get() {
-    return this.http.get('http://lkplaces-env.eba-kgyd2exv.eu-central-1.elasticbeanstalk.com:80/place-types').pipe(map(res => {
+    return this.http.get('/api/place-types').pipe(map(res => {
       this.placeTypesData = res;
       return res;
     }));

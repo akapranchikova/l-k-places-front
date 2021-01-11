@@ -18,6 +18,8 @@
     Тип маркера
   </label>
   <app-select class="select" formControlName="placeTypeId" [items]="placeTypes" valueField="id" labelField="label"></app-select>
+  <input class="input-file" #fileInput type="file" accept="image/png, image/jpeg, image/jpg"
+         (change)="handleFiles($event.target.files)" name="poster[]">
   <div class="map" id="map-add" #mapAdd></div>
 
   <div class="section-modal__wrap-button">

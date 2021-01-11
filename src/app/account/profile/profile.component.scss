@@ -18,6 +18,7 @@
 
   &__image {
     width: 100%;
+    height: auto;
   }
 
   &__info {
@@ -73,4 +74,32 @@
     font-weight: 500;
   }
 
+}
+
+.wrap-image {
+  position: relative;
+  .hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  &:hover {
+    .hover {
+      display: flex;
+
+    }
+  }
+  .input-file {
+    width: 0;
+    height: 0;
+  }
 }

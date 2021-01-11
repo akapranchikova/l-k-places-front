@@ -9,7 +9,7 @@ import {AuthService} from '../../services/auth.service';
 const L = window['L'];
 const TOKEN = 'pk.eyJ1IjoiYWthcHJhbmNoaWtvdmEiLCJhIjoiY2tneXRob3lxMG91ODJzb3NlNGt6Z2wxcyJ9.u6IgyPtPQpZhtUQldevAsw';
 
-enum MarkerTypes {
+export enum MarkerTypes {
   draw = 'draw', house = 'house', other = 'other'
 }
 
@@ -48,7 +48,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   loadMarkers() {
     this.httpService.get('/map-markers').subscribe(res => {
       res.forEach(marker => {
-        this.addMarker(this.objType[marker.placeType.id], [marker.lat, marker.lng], marker.description);
+        this.addMarker(this.objType[marker.placeType.id], [marker.lat, marker.lng], marker.description, marker.image, marker.label);
       });
       Object.keys(this.markerLayers).forEach(key => {
         this.markerLayers[key].addTo(this.map);
@@ -64,14 +64,14 @@ export class MapComponent implements OnInit, AfterViewInit {
       zoomDelta: 0.25,
       zoomSnap: 0,
     });
-    // L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
-    //   maxZoom: 18,
-    //   id: 'mapbox/streets-v11',
-    //   tileSize: 512,
-    //   countryLabel: 'ru',
-    //   zoomOffset: -1,
-    //   accessToken: 'your.mapbox.access.token'
-    // }).addTo(this.map);
+    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${TOKEN}`, {
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      countryLabel: 'ru',
+      zoomOffset: -1,
+      accessToken: 'your.mapbox.access.token'
+    }).addTo(this.map);
     this.loadMarkers();
   }
 
@@ -97,7 +97,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addMarker(type, coord, info?) {
+  addMarker(type, coord, info?, image?, name?) {
     const marker = L.marker(coord, {
       icon: L.divIcon({
         className: `marker-leaflet ${type}`,
@@ -106,9 +106,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     if (info) {
+      const imageTag = image ? `<img width="100px" class="image-marker-descr" src="data:image/jpeg;base64, ${image}" />` : '';
       const popup = L.popup()
         .setLatLng(coord)
-        .setContent(`<p>${info}</p>`);
+        .setContent(`<div class="marker-descr"><div class="marker-name">${name}</div><div>${imageTag}</div> <div>${info}</div>  </div>`);
       marker.bindPopup(popup);
     }
 

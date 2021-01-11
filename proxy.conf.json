@@ -1,6 +1,6 @@
 {
-  "/": {
-    "target": "http://localhost:8080/",
+  "/api": {
+    "target": "http://lkplaces-env.eba-kgyd2exv.eu-central-1.elasticbeanstalk.com",
     "secure": false
-  }
+  },
 }

@@ -11,20 +11,7 @@ import {HttpService} from '../../services/http.service';
 })
 export class UsersComponent implements OnInit {
 
-  dataSource = [
-    {
-      login: 'user',
-      faculty: 'AMM',
-      user: 'User 1',
-      rating: 1200
-    },
-    {
-      login: 'user',
-      faculty: 'AMM',
-      user: 'User 1',
-      rating: 1200
-    },
-  ];
+  dataSource;
   displayedColumns = ['login', 'faculty', 'user', 'actions'];
   FormMode = FormMode;
 
@@ -46,6 +33,10 @@ export class UsersComponent implements OnInit {
       data: {
         mode,
         element
+      }
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        this.loadUsers();
       }
     });
   }

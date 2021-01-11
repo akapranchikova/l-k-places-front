@@ -4,23 +4,23 @@
   </div>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8 section-rating__table table-rating table-custom">
     <ng-container matColumnDef="login">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Username </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.login}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Инициатор </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.initiator}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="faculty">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Факультет </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.faculty}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Действие </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.actionType}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="user">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Пользователь </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.user}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Объект</mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.domainType}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="rating">
-      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Рейтинг </mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.rating}} </mat-cell>
+      <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef> Дата </mat-header-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element"> {{element.dateTime | date: "dd.MM.yyyy HH:mm"}} </mat-cell>
     </ng-container>
 
 

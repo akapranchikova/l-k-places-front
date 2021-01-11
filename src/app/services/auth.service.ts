@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   signIn(data) {
-    return this.http.post('http://lkplaces-env.eba-kgyd2exv.eu-central-1.elasticbeanstalk.com/users/sign-in', data).pipe(map(res => {
+    return this.http.post('/api/users/sign-in', data).pipe(map(res => {
       this.saveUser(res);
       // @ts-ignore
       this.saveToken(res.token);

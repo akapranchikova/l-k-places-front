@@ -18,7 +18,7 @@ enum HTTP_METHOD {
 export class HttpService {
 
   // tslint:disable-next-line:variable-name
-  private _apiUrl = 'http://lkplaces-env.eba-kgyd2exv.eu-central-1.elasticbeanstalk.com';
+  private _apiUrl = '/api';
 
   public tokenReceived$ = new ReplaySubject(1);
 

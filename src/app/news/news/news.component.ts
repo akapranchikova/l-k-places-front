@@ -25,7 +25,6 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadNews();
-    this.canEdit = this.authService.canEdit;
     this.authService.getUserObservable().subscribe(res => this.user = res);
   }
 

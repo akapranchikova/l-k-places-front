@@ -3,8 +3,8 @@
     <div class="logo" routerLink="/">Плейсэс</div>
     <nav class="header_main-menu">
       <a class="header_main-menu__link" routerLink="/news" routerLinkActive="active">Новости</a>
-      <a class="header_main-menu__link" routerLink="/events" *ngIf="user" routerLinkActive="active">События</a>
-      <a class="header_main-menu__link" routerLink="/map" routerLinkActive="active">Карта</a>
+<!--      <a class="header_main-menu__link" routerLink="/events" *ngIf="user" routerLinkActive="active">События</a>-->
+      <a class="header_main-menu__link" routerLink="/map" *ngIf="user" routerLinkActive="active">Карта</a>
       <a class="header_main-menu__link" routerLink="/logs" *ngIf="user && user.role === 'ADMIN'" routerLinkActive="active">Журнал</a>
       <a class="header_main-menu__link" routerLink="/users" *ngIf="user && user.role === 'ADMIN'" routerLinkActive="active">Пользователи</a>
     </nav>

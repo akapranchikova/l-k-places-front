@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import 'leaflet';
+import {HttpService} from '../../services/http.service';
+import {ActivatedRoute} from '@angular/router';
 
 const L = window['L'];
 
@@ -17,13 +19,19 @@ enum MarkerTypes {
 export class PostPageComponent implements OnInit, AfterViewInit {
 
   map;
+  news;
+  newsId;
   @ViewChild('map') mapElement: ElementRef;
 
 
-  constructor() {
+  constructor(private http: HttpService, private router: ActivatedRoute) {
+    this.newsId = this.router.snapshot.params.id;
   }
 
   ngOnInit(): void {
+    this.http.get(`/posts/${this.newsId}`).subscribe(res => {
+      this.news = res;
+    });
   }
 
   ngAfterViewInit() {
@@ -42,7 +50,7 @@ export class PostPageComponent implements OnInit, AfterViewInit {
       accessToken: 'your.mapbox.access.token'
     }).addTo(this.map);
 
-    this.addMarker('draw', [51.505, -0.09]);
+    this.addMarker('draw', [this.news.mapMarker.lat, this.news.mapMarker.lng]);
 
   }
 

@@ -7,6 +7,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../common/material.module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 const routes: Routes = [
   {
@@ -17,13 +19,15 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [EventsComponent, AddEventModalComponent],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    MatIconModule,
-    MatTooltipModule,
-    ReactiveFormsModule,
-    MaterialModule
-  ]
+    imports: [
+        RouterModule.forChild(routes),
+        CommonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        MatFormFieldModule
+    ]
 })
 export class EventsModule { }

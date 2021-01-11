@@ -5,6 +5,7 @@ import {AddUserModalComponent} from './users/add-user-modal/add-user-modal.compo
 import {UsersComponent} from './users/users.component';
 import {MatTableModule} from '@angular/material/table';
 import {MaterialModule} from '../common/material.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -15,12 +16,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [UsersComponent, AddUserModalComponent],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    MatTableModule,
-    MaterialModule
-  ],
+    imports: [
+        RouterModule.forChild(routes),
+        CommonModule,
+        MatTableModule,
+        MaterialModule,
+        ReactiveFormsModule
+    ],
   entryComponents: [
     AddUserModalComponent
   ]
